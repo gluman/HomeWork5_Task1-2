@@ -139,7 +139,7 @@ def check_shelf(num_shelf):  # проверка наличия полки
 
 
 def help_fync():
-    print('''
+    text = '''
     "h" - help - вывод справки
     "p" – people – по номеру документа и выведет имя человека, которому он принадлежит;
     "s" – shelf – по номеру документа выведет номер полки, на которой он находится;
@@ -150,8 +150,8 @@ def help_fync():
     "ss" - show shelfs - вывод всех полок с номерами документов
     "as" – add shelf – по номеру новой полки добавит ее в перечень.
     "q" - quit - выход из программы
-    ''')
-    return 0
+    '''
+    return text
 
 
 documents = [
@@ -167,22 +167,21 @@ directories = {
     }
 
 command = {
-    'h': help_fync,
-    'p': show_owner,
-    's': show_shelf,
-    'l': show_docs,
-    'd': delete_doc,
-    'm': move_doc,
-    'ss': show_shelfs,
-    'as': add_shelf,
-    'q': quit
+    'h': help_fync(),
+    'p': show_owner(),
+    's': show_shelf(),
+    'l': show_docs(),
+    'd': delete_doc(),
+    'm': move_doc(),
+    'ss': show_shelfs(),
+    'as': add_shelf(),
+    'q': quit()
     }
 
 run = True
 while run:
     var = input('Введите команду (h - справка)')
-    command.get(var, print("Такая команда не найдена."))
-
+    print(command.get(var, "Такая команда не найдена."))
 
 
 
