@@ -167,21 +167,22 @@ directories = {
     }
 
 command = {
-    'h': help_fync(),
-    'p': show_owner(),
-    's': show_shelf(),
-    'l': show_docs(),
-    'd': delete_doc(),
-    'm': move_doc(),
-    'ss': show_shelfs(),
-    'as': add_shelf(),
-    'q': quit()
+    'h': help_fync,
+    'p': show_owner,
+    's': show_shelf,
+    'l': show_docs,
+    'd': delete_doc,
+    'm': move_doc,
+    'ss': show_shelfs,
+    'as': add_shelf,
+    'q': quit
     }
 
 run = True
 while run:
-    var = input('Введите команду (h или help - справка)')
-    command[var]
+    var = input('Введите команду (h - справка)')
+    command.get(var, print("Такая команда не найдена."))
+
 
 
 
