@@ -16,19 +16,18 @@ def show_owner():
     num_doc = input('Введите номер документа: ')
     for row in documents:
         if num_doc in row.values():
-            print(f"Владелец документа: {row['name']}")
-            return 1
-        return 0
+            return f"Владелец документа: {row['name']}"
+    return
 
 
 def show_shelf():
     num_doc = input('Введите номер документа: ')
     for shelf, nums_doc in directories.items():
         if num_doc in nums_doc:
-            print(f'Документ находится на полке: {shelf}')
-            return (1)
+            return f'Документ находится на полке: {shelf}'
+
     print("- Ошибка поиска документа")
-    return 0
+    return
 
 
 def show_docs():
@@ -41,8 +40,8 @@ def show_docs():
         else:
             row_str += " \"" + row[key] + "\""
 
-    print(row_str)
-    return 1
+    return row_str
+
 
 
 def add_doc():
@@ -59,18 +58,16 @@ def add_doc():
             dict_temp['name'] = name_owner
             directories[num_shelf].append(num_doc)
             documents.append(dict_temp)
-            return (1)
+            return 'Документ создан'
         else:
             if input(f'- Полка с номером {num_shelf} не найдена. Добавить? (yes/no): ').lower() in ['yes', 'y']:
                 add_shelf(num_shelf)
-                return add_doc(num_doc, type_doc, name_owner,
-                               num_shelf)  # вызов из функции самой себя. Возможно ошибка. На сколько корректно такое использование? По идее работает
+                return add_doc()
     else:
         print('- Документ с таким номером уже есть!')
         show_docs()
-        return (0)
-    print("- Документ не добавлен")
-    return 0
+        return
+    return "- Документ не добавлен"
 
 
 def delete_doc():
@@ -82,9 +79,9 @@ def delete_doc():
                     if num_doc in s_docs:
                         s_docs.remove(num_doc)
                         documents.remove(row)
-                        print(f'.Документ с номером {num_doc} удален')
-                        return 1
-        return 0
+                        return f'.Документ с номером {num_doc} удален'
+
+        return
 
 
 def move_doc():
@@ -139,7 +136,7 @@ def check_shelf(num_shelf):  # проверка наличия полки
 
 
 def help_fync():
-    text = '''
+    return '''
     "h" - help - вывод справки
     "p" – people – по номеру документа и выведет имя человека, которому он принадлежит;
     "s" – shelf – по номеру документа выведет номер полки, на которой он находится;
@@ -151,7 +148,7 @@ def help_fync():
     "as" – add shelf – по номеру новой полки добавит ее в перечень.
     "q" - quit - выход из программы
     '''
-    return text
+    # return text
 
 
 documents = [
@@ -166,22 +163,23 @@ directories = {
     '3': []
     }
 
-command = {
-    'h': help_fync(),
-    'p': show_owner(),
-    's': show_shelf(),
-    'l': show_docs(),
-    'd': delete_doc(),
-    'm': move_doc(),
-    'ss': show_shelfs(),
-    'as': add_shelf(),
-    'q': quit()
-    }
+def command(i):
+    return{
+        'h': help_fync,
+        'p': show_owner,
+        # 's': show_shelf(),
+        # 'l': show_docs(),
+        # 'd': delete_doc(),
+        # 'm': move_doc(),
+        # 'ss': show_shelfs(),
+        # 'as': add_shelf(),
+        # 'q': quit()
+        }.get(i, "Такая команда не найдена.")
 
 run = True
 while run:
     var = input('Введите команду (h - справка)')
-    print(command.get(var, "Такая команда не найдена."))
+    command(var)
 
 
 
