@@ -17,8 +17,8 @@ def show_owner():
     for row in documents:
         if num_doc in row.values():
             print(f"Владелец документа: {row['name']}")
-            return (1)
-        return (0)
+            return 1
+        return 0
 
 
 def show_shelf():
@@ -28,7 +28,7 @@ def show_shelf():
             print(f'Документ находится на полке: {shelf}')
             return (1)
     print("- Ошибка поиска документа")
-    return (0)
+    return 0
 
 
 def show_docs():
@@ -42,7 +42,7 @@ def show_docs():
             row_str += " \"" + row[key] + "\""
 
     print(row_str)
-    return (1)
+    return 1
 
 
 def add_doc():
@@ -70,7 +70,7 @@ def add_doc():
         show_docs()
         return (0)
     print("- Документ не добавлен")
-    return (0)
+    return 0
 
 
 def delete_doc():
@@ -110,7 +110,7 @@ def move_doc():
 def show_shelfs():
     for key, values in directories.items():
         print(f'Полка №{key}:, Документы: {values}')
-    return (1)
+    return 1
 
 
 def add_shelf():
@@ -118,24 +118,24 @@ def add_shelf():
     if check_shelf(num_shelf) == 0:
         directories[num_shelf] = []
         print(f'Полка с номером №{num_shelf} добавлена.')
-        return (1)
+        return 1
     else:
         print(f'Полка с номером №{num_shelf} уже есть!')
-        return (0)
+        return 0
 
 
 def check_doc(num_doc):  # проверка наличия документа в перечне документов и на полке
     for row in documents:
         if num_doc in row.values():
-            return (1)  # возвращаем true если документ найден.
-    return (0)  # возвращаем false если документ не найден.
+            return 1  # возвращаем true если документ найден.
+    return 0 # возвращаем false если документ не найден.
 
 
 def check_shelf(num_shelf):  # проверка наличия полки
     for shelf in directories:
         if num_shelf == shelf:
             return (1)
-    return (0)
+    return 0
 
 
 def help_fync():
@@ -151,20 +151,20 @@ def help_fync():
     "as" – add shelf – по номеру новой полки добавит ее в перечень.
     "q" - quit - выход из программы
     ''')
-    return (0)
+    return 0
 
 
 documents = [
     {"type": "passport", "number": "2207 876234", "name": "Василий Гупкин"},
     {"type": "invoice", "number": "11-2", "name": "Геннадий Покемонов"},
     {"type": "insurance", "number": "10006", "name": "Аристарх Павлов"}
-]
+    ]
 
 directories = {
     '1': ['2207 876234', '11-2', '5455 028765'],
     '2': ['10006'],
     '3': []
-}
+    }
 
 command = {
     'h': help_fync(),
@@ -176,13 +176,12 @@ command = {
     'ss': show_shelfs(),
     'as': add_shelf(),
     'q': quit()
-}
+    }
 
 run = True
 while run:
-    # print('Введите команду (h или help - справка)')
-    var = input(f'Введите команду (h или help - справка) {command[input()]}')
-    print(var)
+    var = input('Введите команду (h или help - справка)')
+    command[var]
 
 
 
